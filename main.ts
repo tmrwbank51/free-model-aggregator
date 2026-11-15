@@ -940,7 +940,10 @@ async function main() {
     }
     await sleep(POLL_MS);
   }
+  // The workload is done: every response has been delivered and recorded,
+  // so exit now rather than waiting on keep-alive sockets to time out.
   server.close();
+  process.exit(0);
 }
 
 main().catch((err) => {
